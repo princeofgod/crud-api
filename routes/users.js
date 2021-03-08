@@ -4,45 +4,18 @@ const { validateData, validateSearch } = require('../helpers/validate');
 const userController = require('../controllers/user')
 var router = express.Router();
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.json({
-    message : 'Welcome to users API'
-  });
-});
+// /* GET users listing. */
+// router.get('/', function(req, res, next) {
+//   res.json({
+//     message : 'Welcome to users API'
+//   });
+// });
 
-router.post('/create',validateData, async (req, res) => {
-  const result = validationResult(req);
-  if(!result.isEmpty()){
-    const err = []
-    result.array().forEach( el => {
-      err.push(el.msg)
-    });
-    res.json({
-      errors : err
-    });
-  } else {
-    await userController.createOne(req.body);
-    res.json({
-      success : "User successfully created!"
-    })
-  }
-});
+router.post('/create',validateData, userController.createOne);
 
-router.get('/readall', async (req, res) => {
-  const users = await userController.getAll()
-  res.json({
-    users
-  })
-})
+router.get('/readall', userController.getAll);
 
-router.patch('/update', async (req, res) => {
-  const updated = await userController.updateOne(req.body);
-  res.json({
-    message : "User successfully updated!!!",
-    "updated result" : updated
-  })
-})
+router.patch('/update', userController.updateOne)
 
 
 router.delete('/delete', async (req, res) => {
