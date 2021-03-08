@@ -16,3 +16,7 @@ exports.validateData = [
 exports.validateSearch = [
     check('email').notEmpty().withMessage('The only search parametr allowed for now is the email!')
 ]
+
+exports.validateUpdate = [
+    check('email').notEmpty().withMessage('Email cannot be empty!').isEmail().withMessage("Please provide a valid email!!!")
+]
